@@ -34,7 +34,7 @@ public class CompanyController {
     UserServiceImpl userService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getCompanyInfo(){
+    public ResponseEntity<List<CompanyDTO>> getCompanyInfo(){
         try{
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserPrinciple user = (UserPrinciple) auth.getPrincipal();
@@ -43,12 +43,12 @@ public class CompanyController {
         }
         catch (Exception ex){
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.COMPANY_CODE, ex.getMessage(), null), HttpStatus.OK);
+            return new ResponseEntity<>(new ArrayList<CompanyDTO>(), HttpStatus.OK);
         }
     }
 
     @GetMapping("/get-by-id/{id}")
-    public ResponseEntity<?> getCompanyById(@NotNull @RequestParam Long id){
+    public ResponseEntity<CompanyDTO> getCompanyById(@NotNull @RequestParam Long id){
         try{
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserPrinciple user = (UserPrinciple) auth.getPrincipal();
@@ -57,7 +57,7 @@ public class CompanyController {
         }
         catch (Exception ex){
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.COMPANY_CODE, ex.getMessage(), null), HttpStatus.OK);
+            return new ResponseEntity<CompanyDTO>(new CompanyDTO(),HttpStatus.OK);
         }
     }
 

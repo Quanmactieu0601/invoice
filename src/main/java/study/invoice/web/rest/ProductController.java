@@ -22,6 +22,7 @@ import study.invoice.web.rest.extension.Extension;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class ProductController {
     UserServiceImpl userService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getAllProduct(){
+    public ResponseEntity<List<ProductDTO>> getAllProduct(){
         try{
             User user = Extension.getCurrenUser();
             List<ProductDTO> productDTOList = productService.getAllByComID(user.getComID());
@@ -43,12 +44,12 @@ public class ProductController {
         }
         catch (Exception ex){
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.PRODUCT_CODE, ex.getMessage(), null), HttpStatus.OK);
+            return new ResponseEntity<>(new ArrayList<ProductDTO>(), HttpStatus.OK);
         }
     }
 
     @GetMapping("/get-by-id/{id}")
-    public ResponseEntity<?> getProductById(@NotNull @RequestParam Long id){
+    public ResponseEntity<ProductDTO> getProductById(@NotNull @RequestParam Long id){
         try{
             User user = Extension.getCurrenUser();
             ProductDTO productDTO = productService.getByIdAndComID(id, user.getComID());
@@ -56,7 +57,7 @@ public class ProductController {
         }
         catch (Exception ex){
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.PRODUCT_CODE, ex.getMessage(), null), HttpStatus.OK);
+            return new ResponseEntity<>(new ProductDTO(), HttpStatus.OK);
         }
     }
 
@@ -125,7 +126,7 @@ public class ProductController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<?> deleteMultiple(@RequestBody @RequestParam String name, @RequestParam String code){
+    public ResponseEntity<List<ProductDTO>> deleteMultiple(@RequestBody @RequestParam String name, @RequestParam String code){
         try{
             User user = Extension.getCurrenUser();
             List<ProductDTO> productDTOList = productService.filter(name, code, user);
@@ -133,7 +134,7 @@ public class ProductController {
         }
         catch(Exception ex){
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.PRODUCT_CODE, ex.getMessage(), null), HttpStatus.OK);
+            return new ResponseEntity<>(new ArrayList<ProductDTO>(), HttpStatus.OK);
         }
     }
 }

@@ -1,32 +1,30 @@
-package study.invoice.domain;
+package study.invoice.dto;
 
-import org.hibernate.annotations.NaturalId;
-
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "invoiceTemplate")
-public class InvoiceTemplate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class InvTemplateDTO {
     private Long id;
 
-    @Column(name = "comID")
-    @NotNull
     private Long comID;
 
-    @Column(name = "pattern")
     @NotNull
     private String pattern;
 
-    @Column(name = "templateViewID")
     @NotNull
     private Long templateViewID;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private TemplateView templateView;
+    private TemplateViewDTO templateViewDTO;
+
+    public InvTemplateDTO() {
+    }
+
+    public InvTemplateDTO(Long id, Long comID, @NotNull String pattern, @NotNull Long templateViewID) {
+        this.id = id;
+        this.comID = comID;
+        this.pattern = pattern;
+        this.templateViewID = templateViewID;
+    }
 
     public Long getId() {
         return id;
@@ -60,11 +58,11 @@ public class InvoiceTemplate {
         this.templateViewID = templateViewID;
     }
 
-    public TemplateView getTemplateView() {
-        return templateView;
+    public TemplateViewDTO getTemplateViewDTO() {
+        return templateViewDTO;
     }
 
-    public void setTemplateView(TemplateView templateView) {
-        this.templateView = templateView;
+    public void setTemplateViewDTO(TemplateViewDTO templateViewDTO) {
+        this.templateViewDTO = templateViewDTO;
     }
 }
