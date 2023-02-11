@@ -1,5 +1,6 @@
 package study.invoice.domain;
 
+import com.mysql.cj.xdevapi.Collection;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -24,8 +25,8 @@ public class InvoiceTemplate {
     @NotNull
     private Long templateViewID;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(optional=false)
+    @JoinColumn(name="templateView",referencedColumnName="id")
     private TemplateView templateView;
 
     public Long getId() {

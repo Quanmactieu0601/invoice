@@ -5,6 +5,8 @@ import java.util.Set;
 public class UserDTO {
     private String login;
     private String password;
+
+    private String remindPassword;
     private String firstName;
     private String lastName;
     private String email;
@@ -108,5 +110,13 @@ public class UserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getRemindPassword() {
+        return remindPassword;
+    }
+
+    public void setRemindPassword(String remindPassword) {
+        this.remindPassword = remindPassword;
     }
 }

@@ -48,6 +48,10 @@ public class TemplateView {
     @Column(name = "cssBackground")
     private String cssBackground;
 
+//    @ManyToOne(optional=false)
+//    @JoinColumn(name="invoiceTemplate",referencedColumnName="id")
+//    private InvoiceTemplate invoiceTemplate;
+
     public Long getId() {
         return id;
     }

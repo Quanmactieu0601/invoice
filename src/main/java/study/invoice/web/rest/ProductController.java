@@ -113,7 +113,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponeDTO> deleteMultiple(@RequestBody @RequestParam Long id){
+    public ResponseEntity<ResponeDTO> delete(@RequestBody @RequestParam Long id){
         try{
             User user = Extension.getCurrenUser();
             productService.delete(id, user);
@@ -126,7 +126,7 @@ public class ProductController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<ProductDTO>> deleteMultiple(@RequestBody @RequestParam String name, @RequestParam String code){
+    public ResponseEntity<List<ProductDTO>> filter(@RequestBody @RequestParam String name, @RequestParam String code){
         try{
             User user = Extension.getCurrenUser();
             List<ProductDTO> productDTOList = productService.filter(name, code, user);
