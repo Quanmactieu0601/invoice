@@ -11,6 +11,7 @@ import study.invoice.domain.Product;
 import study.invoice.domain.User;
 import study.invoice.dto.ProductDTO;
 import study.invoice.dto.UserDTO;
+import study.invoice.dto.request.ChangePasswordForm;
 import study.invoice.dto.respone.ResponeDTO;
 import study.invoice.service.implement.UserServiceImpl;
 import study.invoice.web.rest.extension.Extension;
@@ -69,7 +70,7 @@ public class UserController {
     public ResponseEntity<?> updateCompany(@NotNull @RequestBody UserDTO userDTO){
         try{
             User user = Extension.getCurrenUser();
-            User updateUser = userService.updateProduct(userDTO, user);
+            User updateUser = userService.updateUser(userDTO, user);
             return new ResponseEntity<>(updateUser, HttpStatus.OK);
         }
         catch(Exception ex){
@@ -114,6 +115,22 @@ public class UserController {
         catch(Exception ex){
             log.error(ex.getMessage(), ex);
             return new ResponseEntity<>(new ArrayList<UserDTO>(), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordForm changePasswordForm){
+        try{
+            User currenUser = Extension.getCurrenUser();
+            if(changePasswordForm.getLogin() != currenUser.getLogin()){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            User newUser = userService.changePassword(changePasswordForm, currenUser);
+            return new ResponseEntity<>(new ResponeDTO(true, null, "Cập nhật mật khẩu thành công", null), HttpStatus.OK);
+        }
+        catch(Exception ex){
+            log.error(ex.getMessage(), ex);
+            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.USER_CODE, ex.getMessage(), null), HttpStatus.OK);
         }
     }
 }

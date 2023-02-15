@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "comID")
     @NotNull
-    private long comID;
+    private Long comID;
 
     @Column(name = "code")
     @Size(max = 50)
@@ -46,11 +46,11 @@ public class Product implements Serializable {
     @Size(max = 100)
     private String groupCode;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -118,11 +118,11 @@ public class Product implements Serializable {
         this.groupCode = groupCode;
     }
 
-    public long getComID() {
+    public Long getComID() {
         return comID;
     }
 
-    public void setComID(long comID) {
+    public void setComID(Long comID) {
         this.comID = comID;
     }
 }

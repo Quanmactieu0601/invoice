@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 
 public class ProductDTO {
 
-    private int id;
+    private Long id;
 
     @NotNull
-    private long comID;
+    private Long comID;
 
     @Size(max = 50)
     private String code;
@@ -40,7 +40,7 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, @NotNull long comID,  @Size(max = 50) String code, @NotNull @Size(max = 200) String name,
+    public ProductDTO(Long id, @NotNull Long comID,  @Size(max = 50) String code, @NotNull @Size(max = 200) String name,
                       @Size(max = 100) String unit, BigDecimal quantity, BigDecimal price, float vatrate,
                       BigDecimal vatrateOther, @Size(max = 100) String groupCode) {
         this.id = id;
@@ -55,11 +55,11 @@ public class ProductDTO {
         this.groupCode = groupCode;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

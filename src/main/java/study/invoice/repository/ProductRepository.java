@@ -11,4 +11,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByComID(Long comId);
 
     Product findByIdAndComID(Long id, Long comID);
+
+    boolean existsByCodeAndComID(String code, Long comID);
 }

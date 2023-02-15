@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByComID(Long comID);
 
-    Optional<User> findByIDAndComID(Long id, Long comID);
+    Optional<User> findByIdAndComID(Long id, Long comID);
 }

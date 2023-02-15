@@ -42,11 +42,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createNew(ProductDTO productDTO, User user) {
-        return null;
+        if(productRepository.existsByCodeAndComID(productDTO.getCode(), user.getComID())){
+            throw new RuntimeException("Đã tồn tại mã sản phẩm trong hệ thống");
+        }
+
+        Product newProduct = new Product();
+        newProduct = MappingHelper.map(productDTO, Product.class);
+        newProduct.setComID(user.getComID());
+        productRepository.save(newProduct);
+        return newProduct;
     }
 
     @Override
     public Product updateProduct(ProductDTO productDTO, User user) {
+        Product product = productRepository.findByIdAndComID(productDTO.getId(), user.getComID());
         return null;
     }
 
