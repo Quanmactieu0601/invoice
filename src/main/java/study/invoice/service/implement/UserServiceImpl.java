@@ -3,24 +3,26 @@ package study.invoice.service.implement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import study.invoice.domain.Company;
 import study.invoice.domain.Role;
 import study.invoice.domain.User;
 import study.invoice.dto.UserDTO;
 import study.invoice.enm.RoleName;
+import study.invoice.repository.CompanyRepository;
 import study.invoice.repository.UserRepository;
+import study.invoice.service.Mapping.MappingHelper;
 import study.invoice.service.UserService;
 import study.invoice.service.error.NotFoundUserName;
 import study.invoice.service.error.UsernameAlreadyUsedException;
 
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CompanyRepository companyRepository;
     @Autowired
     RoleServiceImpl roleService;
     @Autowired
@@ -85,5 +87,27 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    @Override
+    public List<UserDTO> getAllByComID(Long comID) {
+        List<User> userList = new ArrayList<>();
+        if(comID == null){
+            userList = userRepository.findAll();
+        }
+        else {
+            userList = userRepository.findByComID(comID);
+            List<Company> listCompany = companyRepository.getByParentComID(comID);
+            for(Company com : listCompany ){
+                userList.addAll(userRepository.findByComID(com.getId()));
+            }
+        }
+        return MappingHelper.map(userList, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO getByIdAndComID(Long id, Long comID) {
+        User user = userRepository.findByIDAndComID(id, comID).orElseThrow(() -> new RuntimeException("User không thuộc quản lý của công ty"));
+        return MappingHelper.map(user, UserDTO.class);
     }
 }

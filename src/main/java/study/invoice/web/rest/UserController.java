@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/get-by-id/{id}")
-    public ResponseEntity<UserDTO> getProductById(@NotNull @RequestParam Long id){
+    public ResponseEntity<UserDTO> getUserById(@NotNull @RequestParam Long id){
         try{
             User user = Extension.getCurrenUser();
             UserDTO userDTO = userService.getByIdAndComID(id, user.getComID());
@@ -54,23 +54,9 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createParentCompany(@Valid @RequestBody UserDTO userDTO){
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
         try{
-            User user = Extension.getCurrenUser();
-            User newUser = userService.createNew(userDTO, user);
-            return new ResponseEntity<>(newUser, HttpStatus.OK);
-        }
-        catch(Exception ex){
-            log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(new ResponeDTO(false, ErrorCode.USER_CODE, ex.getMessage(), null), HttpStatus.OK);
-        }
-    }
-
-    @PostMapping("/change-password")
-    public ResponseEntity<?> createParentCompany(@Valid @RequestBody UserDTO userDTO){
-        try{
-            User user = Extension.getCurrenUser();
-            User newUser = userService.changePassWord(userDTO, user);
+            User newUser = userService.createUser(userDTO);
             return new ResponseEntity<>(newUser, HttpStatus.OK);
         }
         catch(Exception ex){
