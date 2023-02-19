@@ -34,7 +34,7 @@ public class TokenProvider {
         String secret = "authentication_invoice manage product_Nguyen Van Tinh_nhatdieptrithu99@gmail.com" + new Date().getTime()  ;
         byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.tokenValidityInMilliseconds = 60 * 5 * 1000; // 5 minutes
+        this.tokenValidityInMilliseconds = 60 * 5 * 1000 * 12 * 24 * 7; // 5 minutes
     }
 
     public String createToken(Authentication authentication) {

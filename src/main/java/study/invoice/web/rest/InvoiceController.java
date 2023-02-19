@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/invoice")
+@RequestMapping("/api/invoice")
 @RestController
 public class InvoiceController {
     private final Logger log = LoggerFactory.getLogger(InvoiceController.class);
@@ -73,6 +73,7 @@ public class InvoiceController {
     public ResponseEntity<?> createInvoice(@Valid @RequestBody InvoiceDTO invoiceDTO){
         try{
             User user = Extension.getCurrenUser();
+            invoiceDTO.setComID(user.getComID());
             Invoice product = invoiceService.createNew(invoiceDTO, user);
             return new ResponseEntity<>(product, HttpStatus.OK);
         }

@@ -62,9 +62,10 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createParentCompany(@Valid @RequestBody ProductDTO productDTO){
+    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO productDTO){
         try{
             User user = Extension.getCurrenUser();
+            productDTO.setComID(user.getComID());
             Product product = productService.createNew(productDTO, user);
             return new ResponseEntity<>(product, HttpStatus.OK);
         }
@@ -87,7 +88,7 @@ public class ProductController {
 //    }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateCompany(@NotNull @RequestBody ProductDTO productDTO){
+    public ResponseEntity<?> updateProduct(@NotNull @RequestBody ProductDTO productDTO){
         try{
             User user = Extension.getCurrenUser();
             Product product = productService.updateProduct(productDTO, user);

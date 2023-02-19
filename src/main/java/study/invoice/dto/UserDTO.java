@@ -5,7 +5,7 @@ import java.util.Set;
 public class UserDTO {
     private String login;
     private String password;
-
+    private Long comID;
     private String remindPassword;
     private String firstName;
     private String lastName;
@@ -19,9 +19,10 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, boolean activated, String country, String phone, String personalID, Set<String> authorities) {
+    public UserDTO(String login, String password, Long comID, String firstName, String lastName, String email, boolean activated, String country, String phone, String personalID, Set<String> authorities) {
         this.login = login;
         this.password = password;
+        this.comID = comID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -118,5 +119,13 @@ public class UserDTO {
 
     public void setRemindPassword(String remindPassword) {
         this.remindPassword = remindPassword;
+    }
+
+    public Long getComID() {
+        return comID;
+    }
+
+    public void setComID(Long comID) {
+        this.comID = comID;
     }
 }

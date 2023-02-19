@@ -42,6 +42,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createNew(ProductDTO productDTO, User user) {
+        if(user.getComID() == null){
+            throw new RuntimeException("Tài khoản không có quyền tạo sản phẩm");
+        }
         if(productRepository.existsByCodeAndComID(productDTO.getCode(), user.getComID())){
             throw new RuntimeException("Đã tồn tại mã sản phẩm trong hệ thống");
         }

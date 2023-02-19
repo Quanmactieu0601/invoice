@@ -13,7 +13,6 @@ public class ProductDTO {
 
     private Long id;
 
-    @NotNull
     private Long comID;
 
     @Size(max = 50)

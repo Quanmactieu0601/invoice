@@ -1,7 +1,6 @@
 package study.invoice.service.implement;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import study.invoice.domain.Company;
@@ -51,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setActivated(true);
+        user.setComID(userDTO.getComID());
         user.setLogin(userDTO.getLogin());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());

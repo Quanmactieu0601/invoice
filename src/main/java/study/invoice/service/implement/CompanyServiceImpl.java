@@ -150,6 +150,7 @@ public class CompanyServiceImpl implements CompanyService {
         admin.setLogin("admin_" + newCom.getComTaxCode());
         admin.setFirstName("admin");
         admin.setPassword("admin" + newCom.getComTaxCode());
+        admin.setComID(newCom.getId());
         admin.setAuthorities(new HashSet<String>(Arrays.asList(RoleName.ADMIN.toString())));
 
         userService.createUser(admin);
@@ -160,6 +161,7 @@ public class CompanyServiceImpl implements CompanyService {
         sAdmin.setLogin("sadmin_" + newCom.getComTaxCode());
         sAdmin.setFirstName("sadmin");
         sAdmin.setPassword("sadmin" + newCom.getComTaxCode());
+        sAdmin.setComID(newCom.getId());
         sAdmin.setAuthorities(new HashSet<String>(Arrays.asList(RoleName.SUPER_ADMIN.toString())));
 
         userService.createUser(sAdmin);
