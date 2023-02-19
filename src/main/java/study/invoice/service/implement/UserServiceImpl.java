@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
     public void deleteMultiple(List<Long> ids, User user) {
         List<User> userList = userRepository.findAllById(ids);
         if(userList.stream().anyMatch( u -> u.getComID() != user.getComID())){
-            throw new RuntimeException("Tồn tại User không thuộc quyền quản l cuủa công ty");
+            throw new RuntimeException("Tồn tại User không thuộc quyền quản lý của công ty");
         }
 
         userRepository.deleteAllInBatch(userList);

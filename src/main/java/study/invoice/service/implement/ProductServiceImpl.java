@@ -56,18 +56,38 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(ProductDTO productDTO, User user) {
         Product product = productRepository.findByIdAndComID(productDTO.getId(), user.getComID());
-        return null;
+        if(product == null){
+            throw new RuntimeException("Sản phẩm không tồn tại");
+        }
+        product.setCode(productDTO.getCode());
+        product.setPrice(productDTO.getPrice());
+        product.setGroupCode(product.getGroupCode());
+        product.setName(product.getName());
+        product.setQuantity(productDTO.getQuantity());
+        product.setUnit(product.getUnit());
+        product.setVatrate(product.getVatrate());
+        product.setVatrateOther(productDTO.getVatrateOther());
+        productRepository.save(product);
+
+        return product;
     }
 
     @Override
     public void deleteMultiple(List<Long> ids, User user) {
+        List<Product> productList = productRepository.findAllById(ids);
+        if(productList.stream().anyMatch( u -> u.getComID() != user.getComID())){
+            throw new RuntimeException("Tồn tại sản phẩm không thuộc quyền quản lý của công ty");
+        }
 
+        productRepository.deleteAll(productList);
     }
 
     @Override
     public void delete(Long id, User user) {
-
-
+        Product product = productRepository.findByIdAndComID(id, user.getComID());
+        if(product != null){
+            productRepository.delete(product);
+        }
     }
 
     @Override
