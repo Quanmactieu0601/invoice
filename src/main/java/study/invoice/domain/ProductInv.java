@@ -192,4 +192,20 @@ public class ProductInv implements Serializable {
     public void setExtra(String extra) {
         this.extra = extra;
     }
+
+    public Long getInvID() {
+        return invID;
+    }
+
+    public void setInvID(Long invID) {
+        this.invID = invID;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
 }
